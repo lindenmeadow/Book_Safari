@@ -1,0 +1,81 @@
+.content {
+  border-left: 2px solid forestgreen;
+  border-right: 2px solid forestgreen;
+  height: 100%;
+}
+
+.navbar {
+  background-color: forestgreen;
+}
+
+.jumbotron {
+  text-align: center;
+  background-color: khaki;
+}
+
+.log-head {
+  text-align: center;
+}
+
+.heading-text {
+  text-align: center;
+}
+
+.main-buttons {
+  padding: 16px;
+  color: ivory;
+  background-color: forestgreen;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.main-buttons:hover {
+  text-decoration: none;
+  background-color: springgreen;
+  color: black;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.welcome-links {
+  text-align: center;
+  border: 1px solid blue;
+  padding: 8px 8px 24px 8px;
+  border-radius: 10px;
+  width: 60%;
+  margin: auto;
+}
+
+.log-entry {
+  border: 1px solid black;
+  padding: 1.5em;
+  width: 350px;
+  height: 300px;
+  overflow: auto;
+  margin: 5px;
+}
+
+.entry-form {
+  width: 80%;
+  border: 1px solid black;
+  margin: 10px auto;
+  border-radius: 15px;
+  padding: 9px;
+}
+
+.entry-form h2 {
+  text-align: center;
+}
+
+.entry-list {
+  border-top: 3px solid green;
+}
+
+.entry-list h2 {
+  text-align: center;
+}
