@@ -7,20 +7,20 @@ import BookData from './BookData'
 
 
 export const Search = () => {
-  const [maxResults, setMaxResults] = useState(10);
-  const [startIndex, setStartIndex] = useState(1);
-  const [query, setQuery] = useState('');
+  const [resultsNum, setResultsNum] = useState(10);
+  const [startNumber, setStartNumber] = useState(1);
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState([])
 
   const handleSubmit = () => {
     setLoading(true)
-    if(maxResults > 40 || maxResults < 1) {
+    if(resultsNum > 50 || resultsNum < 1) {
       toast.error('max results must be between 1 and 40')
     } else {
-      axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=${maxResults}&startIndex=${startIndex}`).then(res => {
-        if(startIndex >= res.data.totalItems || startIndex < 1) {
-          toast.error(`max results must be between 1 and ${res.data.totalItems}`);
+      axios.get(`https://www.googleapis.com/books/v1/volumes?q=${search}&maxResults=${resultsNum}&startIndex=${startNumber}`).then(res => {
+        if(startNumber >= res.data.totalItems || startNumber < 1) {
+          toast.error(`The number of results to dispaly must be between 1 and ${res.data.totalItems}`);
         } else {
           if(res.data.items.length > 0) {
             setCards(res.data.items)
@@ -35,17 +35,19 @@ export const Search = () => {
     }
   }
 
-  const mainHeader = () => {
+  const searchForm = () => {
+
     return (
-      <div className='main-image d-flex justify-content-center align-items-center flex-column'>
-        <div className="filter"></div>
+      <div className='main-image d-flex justify-content-center align-items-center flex-column border border-success ml-5 mr-5'>
+        
         <h1 className='display-2 text-center text-dark mb-3'>Let's Search for Books!</h1>
+        <p>Powered by Google Books</p>
         <div style={{width: '60%'}}>
           <InputGroup size='1g' className='mb-3'>
             <FormControl 
               placeholder="Enter a title, author name, or keyword(s)" 
-              value={query} 
-              onChange={e => setQuery(e.target.value)}
+              value={search} 
+              onChange={e => setSearch(e.target.value)}
             />
               <InputGroup.Append>
                 <Button color='secondary' onClick={handleSubmit}>
@@ -55,21 +57,21 @@ export const Search = () => {
           </InputGroup>
           <div className="d-flex text-dark justify-content-center">
             <FormGroup className='ml-5'>
-              <p>Enter the number of search results you want (1-50):</p>
+              <p>Enter the number of search results you want to see (1-50).</p>
               <FormControl 
                 type='number' 
-                id='maxResults' 
-                value={maxResults}
-                onChange={e => setMaxResults(e.target.value)}
+                id='resultsNum' 
+                value={resultsNum}
+                onChange={e => setResultsNum(e.target.value)}
               />
             </FormGroup>
             <FormGroup className='ml-5'>
-              <p>Search results starting point:</p>
+              <p>Set the search results starting point. (For example, if you want to start with the first item the search finds, set the number to 1. If you have viewed the first 10 items brought up by your search and want to view the next 10, set the number to 11.)</p>
               <FormControl
                 type='number' 
                 id='startIndex'  
-                value={startIndex}
-                onChange={e => setStartIndex(e.target.value)}
+                value={startNumber}
+                onChange={e => setStartNumber(e.target.value)}
               />
             </FormGroup>
           </div>
@@ -92,8 +94,6 @@ export const Search = () => {
             title={item.volumeInfo.title} 
             pageCount={item.volumeInfo.pageCount}
             authors={item.volumeInfo.authors}
-            language={item.volumeInfo.language}
-            publisher={item.volumeInfo.publisher}
             description={item.volumeInfo.description}
             previewLink={item.volumeInfo.previewLink}
             infoLink={item.volumeInfo.infoLink}
@@ -119,7 +119,7 @@ export const Search = () => {
 
   return (
     <div className='w-100 h-100'>
-      {mainHeader()}
+      {searchForm()}
       {handleCards()}
       <ToastContainer />
 
