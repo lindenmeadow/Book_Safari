@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import BookLogForm from './BookLogForm';
 import LogEntry from './LogEntry';
 import {connect} from 'react-redux';
-import {getBooks} from '../actions/BookActions';
-import {deleteBook} from '../actions/BookActions';
+import {getBooks} from '../actions/BookActions'
+import {deleteBook} from '../actions/BookActions'
 
 
 class Books extends Component {
@@ -19,17 +19,31 @@ class Books extends Component {
         return (
         
                  <div>
-                    <h1 className="log-head">Reading Log</h1>
+                    <h1 className="log-head">Your Reading Log</h1>
                     <BookLogForm />
+                    <hr />
+                    <h2 className="log-head">Log Entries</h2>
+                    <hr />
                     <div className="list">
+                        
                         {
-                            this.props.books.map(book => {
+                            this.props.books.sort(function(a, b) {
+                                var bookA = a.title.toUpperCase(); 
+                                var bookB = b.title.toUpperCase(); 
+                                if (bookA < bookB) {
+                                  return -1;
+                                }
+                                if (bookA > bookB) {
+                                  return 1;
+                                }
+                           
+                                return 0;
+                              }).map(book => {
                                 return (
                                     <LogEntry
                                         key={book.id}
                                         book={book}
                                         onDelete={this.props.onDelete}
-                                        
                                     />
                                 )
                             })
