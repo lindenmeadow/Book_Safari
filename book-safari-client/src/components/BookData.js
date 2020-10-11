@@ -19,7 +19,7 @@ const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
 
     return (
-        <Card style={{width: '233px'}} className='m-auto'>
+        <Card style={{width: '233px'}} className='m-auto border border-success'>
             <Card.Img top style={{width:'100%', height: '233px'}} src={thumbnail} alt={title} />
             <Card.Body>
                 <Card.Title className='card-title'>{title}</Card.Title>
