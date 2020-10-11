@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import BookLogForm from './BookLogForm';
 import LogEntry from './LogEntry';
 import {connect} from 'react-redux';
-import {getBooks} from '../actions/BookActions'
-import {deleteBook} from '../actions/BookActions'
-//import { history } from '../index';
+import {getBooks} from '../actions/BookActions';
+import {deleteBook} from '../actions/BookActions';
 
 
 class Books extends Component {
