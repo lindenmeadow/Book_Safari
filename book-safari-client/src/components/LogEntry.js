@@ -36,11 +36,16 @@ function LogEntry({book}) {
                 question: question
             }
         )) 
+        window.alert("Entry updated.")
     } 
 
     const handleDelete = () => {
-        dispatch(deleteBook(book))
-        
+        let confirmation = window.confirm("Are you sure you want to delete this log entry?")
+        if (confirmation == true) {
+            dispatch(deleteBook(book))
+            window.alert("Entry deleted.")
+            window.location.reload()
+        }
     } 
 
     const [title, setTitle] = useState(book.title)
@@ -106,7 +111,7 @@ function LogEntry({book}) {
                     </Form.Row>
 
                     <Form.Label>How You Know It Belongs to That Genre:</Form.Label>
-                    <Form.Control required input type='text' value={genre_rationale} onChange={e => setGenre_Rationale(e.target.value)} name="genre_rationale" />
+                    <Form.Control required type='text' value={genre_rationale} onChange={e => setGenre_Rationale(e.target.value)} name="genre_rationale" />
                     
                     <Form.Label>Main Characters:</Form.Label>
                     <Form.Control required type='text' value={characters} onChange={e => setCharacters(e.target.value)} name="characters" />
@@ -131,7 +136,7 @@ function LogEntry({book}) {
                 </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={updateLog} variant="success">Save Changes</Button> | <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+                <Button onClick={updateLog} variant="success">Save Changes</Button> | <Button variant="secondary" onClick={handleClose}>Cancel</Button>
 
                 </Modal.Footer>
             </Modal>
