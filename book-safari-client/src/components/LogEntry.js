@@ -1,11 +1,9 @@
-//in process of fixing some issues with editing. replaced earlier edit method with modal box, but still having issues. to be continued...
-
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import {useDispatch} from 'react-redux';
 
-import {updateBook} from '../actions/BookLogActions';
-import {deleteBook} from '../actions/BookLogActions';
+import {updateBook} from '../actions/BookActions';
+import {deleteBook} from '../actions/BookActions';
 
 import {Form, Col, Button, Modal} from 'react-bootstrap';
 
@@ -18,6 +16,32 @@ function LogEntry({book}) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const updateLog = () => {
+        handleClose()
+        dispatch(updateBook(
+            {
+                ...book,
+                title: title,
+                author: author,
+                pages: pages,
+                date_finished: date_finished,
+                genre: genre,
+                genre_rationale: genre_rationale,
+                characters: characters,
+                problem: problem,
+                solution: solution,
+                words_learned: words_learned,
+                something_learned: something_learned,
+                question: question
+            }
+        )) 
+    } 
+
+    const handleDelete = () => {
+        dispatch(deleteBook(book))
+        
+    } 
 
     const [title, setTitle] = useState(book.title)
     const [author, setAuthor] = useState(book.author)
@@ -32,27 +56,28 @@ function LogEntry({book}) {
     const [something_learned, setSomething_Learned] = useState(book.something_learned)
     const [question, setQuestion] = useState(book.question)
 
+    
     return(
         <div className='log-entry' key={book.id}>
             <h3>{book.title}</h3>
-            <p>Author: {book.author}</p>
-            <p>Number of Pages: {book.pages}</p>
-            <p>Date Finished: {book.date_finished}</p>
-            <p>Genre: {book.genre}</p>
-            <p>How I Know It Belongs to This Genre: {book.genre_rationale}</p>
-            <p>Main Characters: {book.characters}</p>
-            <p>Main Problem: {book.problem}</p>
-            <p>Solution: {book.solution}</p>
-            <p>2 Words I Learned: {book.words_learned}</p>
-            <p>Something I Learned: {book.something_learned}</p>
-            <p>A Question about This Book: {book.question}</p>
-            <Button onClick={handleShow} variant="dark">EDIT</Button> | <Button variant="danger" onClick={() => dispatch(deleteBook(book))}>DELETE</Button>
-            <Modal show={show} onHide={handleClose}>
+            <p><b>Author:</b> {book.author}</p>
+            <p><b>Number of Pages:</b> {book.pages}</p>
+            <p><b>Date Finished:</b> {book.date_finished}</p>
+            <p><b>Genre:</b> {book.genre}</p>
+            <p><b>How I Know It Belongs to This Genre:</b> {book.genre_rationale}</p>
+            <p><b>Main Characters:</b> {book.characters}</p>
+            <p><b>Main Problem:</b> {book.problem}</p>
+            <p><b>Solution:</b> {book.solution}</p>
+            <p><b>2 Words I Learned:</b> {book.words_learned}</p>
+            <p><b>Something I Learned:</b> {book.something_learned}</p>
+            <p><b>A Question about This Book:</b> {book.question}</p>
+            <Button value={book} onClick={handleShow} variant="dark">EDIT</Button> | <Button variant="danger" onClick={handleDelete}>DELETE</Button>
+            <Modal size="lg" show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                 <Modal.Title>Edit Log Entry</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form className="entry-form" >
+                    <Form className="entry-form">
                     
                     <Form.Row>
                         <Col>
@@ -106,15 +131,13 @@ function LogEntry({book}) {
                 </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => dispatch(updateBook(book))}>
-                        Save Changes
-                    </Button>
+                    <Button onClick={updateLog} variant="success">Save Changes</Button> | <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+
                 </Modal.Footer>
             </Modal>
         </div>
     )
 }
-
 
 export default connect(null, {updateBook, deleteBook})(LogEntry);
 
