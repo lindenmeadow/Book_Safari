@@ -8,7 +8,7 @@ export const NavSection = () => (
             <Navbar.Collapse id='basic-navbar-nav'>
                 <Nav className='ml-auto'>
                     <Nav.Item><Nav.Link className="text-light" href="/">HOME</Nav.Link></Nav.Item>
-                    <Nav.Item><Nav.Link className="text-light" href="/books">BOOK LOG</Nav.Link></Nav.Item>
+                    <Nav.Item><Nav.Link className="text-light" href="/books">READING LOG</Nav.Link></Nav.Item>
                     <Nav.Item><Nav.Link className="text-light" href="/search">BOOK SEARCH</Nav.Link></Nav.Item>
                 </Nav>
             </Navbar.Collapse>
